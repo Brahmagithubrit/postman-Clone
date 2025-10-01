@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Mini Postman Clone</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        padding: 20px;
+      }
+      input,
+      select,
+      button {
+        padding: 8px;
+        margin: 5px 0;
+        width: 100%;
+        max-width: 400px;
+      }
+      #response {
+        margin-top: 20px;
+        padding: 10px;
+        border: 1px solid #ccc;
+        white-space: pre-wrap;
+        background: #f9f9f9;
+      }
+    </style>
+  </head>
+  <body>
+    <h2>Mini Postman Clone</h2>
+    <form id="requestForm">
+      <label for="methods">Method:</label>
+      <select id="methods" name="methods">
+        <option value="GET">GET</option>
+        <option value="POST">POST</option>
+        <option value="DELETE">DELETE</option>
+        <option value="PUT">PUT</option>
+        <option value="PATCH">PATCH</option>
+      </select>
+      <label for="urlInput">URL:</label>
+      <input
+        name="inputUrl"
+        type="text"
+        id="urlInput"
+        placeholder="Enter URL"
+        required
+      />
+      <button id="btn" type="submit">Send</button>
+    </form>
+    <div id="response"> Response will appear here... </div>
+
+    <script>
+      const inputMethod = document.getElementById("methods");
+      const inputUrl = document.getElementById("urlInput");
+      const sendBtn = document.getElementById("btn");
+      sendBtn.addEventListener("click", async (e) => {
+        e.preventDefault();
+        console.log("btn click");
+        const response = await fetch(inputUrl.value, {
+          method: inputMethod.value,
+        });
+        // here we can add more features like headers , body , json , etc 
+        // this is the basic functionality of postman like tools 
+        const resultedData = await response.json();
+        console.log("convert to json ");
+        const responseDiv = document.getElementById("response");
+        responseDiv.textContent = JSON.stringify(resultedData , null , 2 );
+        console.log("data set ");
+      });
+    </script>
+  </body>
+</html>
